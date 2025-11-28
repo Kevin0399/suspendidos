@@ -1,0 +1,316 @@
+body {
+    width: 95vw;
+    height: 100vh;
+    background: linear-gradient(144deg, #a7c7e7 0%, #7fb3d5 100%);
+    color: #222;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.contenedorPrincipal {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    color: #222;
+}
+
+.datos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 12px 16px;
+    width: 290px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(214,234,248,0.55));
+    border: 1px solid rgba(34,34,34,0.08);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(27, 127, 172, 0.08);
+}
+
+/* Ajustes para los controles dentro de .datos */
+.datos label {
+    font-weight: 600;
+    color: #0f3b4a;
+    font-size: 0.95rem;
+}
+
+.datos input[type="number"],
+.datos input[type="text"],
+.datos select {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #b3cde0;
+    background: rgba(255,255,255,0.9);
+    outline: none;
+    font-size: 0.95rem;
+    color: #122b36;
+}
+
+.datos input[type="number"]:focus,
+.datos input[type="text"]:focus,
+.datos select:focus {
+    box-shadow: 0 0 0 4px rgba(33, 192, 255, 0.12);
+    border-color: rgb(33, 192, 255);
+}
+
+.contProcesos {
+    box-shadow: 0 0 10px #b3cde0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+    width: fit-content;
+    background: #d6eaf8;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.contenedorEstados {
+    display: flex;
+    gap: 3em;
+    justify-content: center;
+    align-items: stretch; /* Mantener hijos con altura consistente */
+}
+
+.tablaEsperaDiv {
+    background: #eaf6fb;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px #b3cde0;
+    min-width: 220px;
+}
+
+.tablaPgDiv {
+    background: #eaf6fb;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px #b3cde0;
+    min-width: 400px;
+}
+
+
+.pantallaTabla {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+th,
+td {
+    border: 1px solid #b3cde0;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background: #aed6f1;
+    color: #222;
+    font-weight: bold;
+}
+
+tr:nth-child(even) td {
+    background: #d6eaf8;
+}
+
+tr:nth-child(odd) td {
+    background: #eaf6fb;
+}
+
+h2 {
+    text-align: center;
+    color: black;
+}
+
+
+.mostrarEjecucion {
+    background: #aed6f1;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px #b3cde0;
+    min-width: 220px;
+    color: #222;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    transition: min-height 220ms ease; /* Transición suave al ajustar altura */
+}
+
+
+#btnVerResultados {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+}
+
+button {
+    cursor: pointer;
+    background-color: rgb(33, 192, 255);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: all .3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 10px aqua;
+}
+
+
+.memoriaContainer {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* Seis columnas de marcos */
+    gap: 8px;
+    max-width: 1400px;
+    margin: 0 auto;
+
+}
+
+.marco {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    background: #f6fbff;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #cfeaf7;
+    box-shadow: 0 2px 6px rgba(27,127,172,0.06);
+}
+
+.marco-id {
+    width: 150px;
+    font-weight: 500;
+    font-size: 0.9em;
+    color: #0f3b4a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.marco-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.slot {
+    height: 12px;
+    border-radius: 4px;
+    background: #ffffff;
+    border: 1px solid #b3cde0;
+}
+
+/* Estado de los slots: ocupado por proceso o reservado para SO */
+.slot.ocupado {
+    background: linear-gradient(90deg,#33c37d,#2bb673);
+    border-color: #2f9e5a;
+}
+
+.slot.so {
+    background: linear-gradient(90deg,#000000,#5c5b56);
+    border-color: #d68910;
+}
+
+/* Clases en el marco para estado libre/ocupado (nombres en español) */
+.marco.libre {
+    opacity: 0.85;
+}
+
+.marco.ocupado {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04) inset;
+}
+
+/* Leyenda y detalles */
+#memoriaLegend {
+    display:flex;
+    gap:12px;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:8px;
+}
+.legend-item {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    font-size:0.95rem;
+    color:#0f3b4a;
+}
+.legend-color {
+    width:18px;
+    height:12px;
+    border-radius:3px;
+    border:1px solid #b3cde0;
+}
+.legend-libre { background: #ffffff; }
+.legend-ocupado { background: linear-gradient(90deg,#33c37d,#2bb673); }
+.legend-so { background: linear-gradient(90deg,#000000,#5c5b56); }
+
+/* Estado visual cuando un proceso asociado al marco está bloqueado */
+.legend-bloqueado { background: linear-gradient(90deg,#8c00ff,#c219f5); }
+
+/* Slots en estado 'bloqueado' (color diferenciado) */
+.slot.bloqueado {
+    background: linear-gradient(90deg,#8c00ff,#c219f5);
+    border-color: #d99a00;
+}
+
+/* Estado visual cuando un proceso está en ejecución (rojo) */
+.slot.ejecucion {
+    background: linear-gradient(90deg,#e74c3c,#c0392b);
+    border-color: #a83228;
+}
+
+.legend-ejecucion { background: linear-gradient(90deg,#e74c3c,#c0392b); }
+
+#memoriaDetails {
+    margin-top:10px;
+    text-align:center;
+    padding:8px 12px;
+    border-radius:8px;
+    background:#f0fbff;
+    border:1px solid #cfeaf7;
+    min-height:44px;
+}
+
+/* Transiciones y animaciones */
+.marco, .slot {
+    transition: all 260ms ease;
+}
+.slot {
+    transition: background 260ms ease, transform 200ms ease;
+}
+.anim-ocupar {
+    animation: animarOcupar 460ms ease;
+}
+.anim-liberar {
+    animation: animarLiberar 420ms ease;
+}
+@keyframes animarOcupar {
+    0% { transform: scale(0.98); box-shadow: 0 0 0 rgba(51,195,125,0.0); }
+    50% { transform: scale(1.03); box-shadow: 0 6px 18px rgba(51,195,125,0.18); }
+    100% { transform: scale(1); box-shadow: none; }
+}
+@keyframes animarLiberar {
+    0% { opacity: 1; transform: translateY(0); }
+    50% { opacity: 0.85; transform: translateY(-3px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive: menos columnas en pantallas estrechas */
+@media (max-width: 1100px) {
+    #memoriaContainer { grid-template-columns: repeat(4, 1fr); max-width: 1000px; }
+}
+@media (max-width: 700px) {
+    #memoriaContainer { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+    .marco-id { width: 34px; font-size: 0.9rem; }
+    .slot { height:10px; }
+}

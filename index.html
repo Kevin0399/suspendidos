@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación - Paginación</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="contenedorPrincipal">
+        <h1>Simulación - Paginación Simple</h1>
+
+
+        <!-- ================= Fase Inicial ================= -->
+        <div id="faseInicial">
+            <form id="formProcesos">
+                <div class="datos">
+                    <label for="numProcesos">Número de procesos:</label>
+                    <input type="number" id="numProcesos" min="1" required>
+                </div>
+                <br> <br>
+                <div class="datos">
+                    <label for="quantum">Valor del Quantum:</label>
+                    <input type="number" id="quantum" min="1" required>
+                </div>
+                <br> <br>
+                <button type="button" id="btnIniciar">Ejecutar Procesos</button>
+            </form>
+        </div>
+
+
+        <!-- ================= Fase Ejecución ================= -->
+        <div id="faseEjecucion" style="display:none;">
+            <div class="contProcesos" id="reloj">Reloj: 0</div>
+            <div class="contProcesos">Nuevos: <span id="nuevos">0</span></div>
+            <div class="contProcesos">Quantum:  <span id="tiempoQuantum">0</span></div>
+            <div class="contProcesos"><span id="proceso-a-listos"></span></div>
+
+
+            <div class="contenedorEstados">
+                <div class="tablaEsperaDiv">
+                    <h2>Listos</h2>
+                    <table id="tablaListos"></table>
+                </div>
+
+
+                <div class="mostrarEjecucion">
+                    <h2>En Ejecución</h2>
+                    <div id="ejecucion">CPU libre</div>
+                </div>
+
+
+                <div class="tablaEsperaDiv">
+                    <h2>Bloqueados</h2>
+                    <table id="tablaBloqueados"></table>
+                </div>
+
+                <div class="tablaEsperaDiv">
+                    <h2>Suspendidos (En Disco)</h2>
+                    <table id="tablaSuspendidos"></table>
+                </div>
+
+
+                <div class="tablaEsperaDiv">
+                    <h2>Terminados</h2>
+                    <table id="tablaTerminados"></table>
+                </div>
+            </div>
+
+            <div id="btnVerResultados"></div>
+            
+            <p><b>Teclas:</b> E = Bloquear, W = Error, P = Pausar, C = Continuar, N = Nuevo Proceso, B = BCP, T = Tabla de Páginas</p>
+
+            <!-- Contenedor de Memoria -->
+            <div id="memoriaWrapper" style="margin-top:1em;">
+                <h2>Memoria</h2>
+
+                <!-- Leyenda de colores -->
+                <div id="memoriaLegend"></div>
+
+                <div id="memoriaContainer"></div>
+
+            </div>
+
+        </div>
+
+        <!-- ====================== Mostar Tabla de Paginas ====================== -->
+        <div id="pantallaTabla" style="display:none;">
+            <div class="contProcesos" id="relojTabla">Reloj: 0</div>
+            <div class="tablaPgDiv">
+                <h2>Tabla de Páginas</h2>
+                <table id="tablaPg"></table>
+                <h2>Bloqueados</h2>
+                <table id="tablaPgBloq"></table>
+                <h2>Marcos Libres</h2>
+                <table id="tablaPgLibres"></table>
+            </div>
+        </div>
+
+        <!-- ====================== Mostar BCP====================== -->
+        <div id="pantallaBcp" style="display:none;">
+            <div class="contProcesos" id="relojBCP">Reloj: 0</div>
+            <div class="tablaEsperaDiv">
+                <h2>BCP</h2>
+                <table id="bcp"></table>
+            </div>
+        </div>
+
+        <!-- ================= Fase Resultados ================= -->
+        <div id="faseResultados" style="display:none;">
+            <h2>Resultados Finales</h2>
+            <table id="tablaResultados"></table>
+        </div>
+    </div>
+    <script src="suspendidos.js"></script>
+</body>
+
+</html>
