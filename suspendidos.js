@@ -510,7 +510,7 @@ const finalizarProceso = (p) => {
 }
 
 // ================================
-// Manejo de teclas: E, W, P, C
+// Manejo de teclas: E, W, P, C, B, T, S, R
 // ================================
 document.addEventListener("keydown", (e) => {
     const tecla = e.key.toUpperCase();
@@ -557,10 +557,12 @@ document.addEventListener("keydown", (e) => {
     else if (tecla === "S") {
         // Si hay procesos bloqueados
         if (bloqueados.length > 0) {
-            bloqueados[0].estado = 'Suspendido';
-            retirarProceso(bloqueados[0]); // Retiramos el proceso de la memoria
+            let suspendido = bloqueados[0]
+            suspendido.estado = 'Suspendido';
+            retirarProceso(suspendido); // Retiramos el proceso de la memoria
             suspendidos.push(bloqueados.shift()); // Suspendemos el proceso bloqueado 
             console.log("Suspendidos: ", suspendidos);
+            guardarArchivo();
         }
     }
     else if (tecla === "R") {
@@ -575,6 +577,7 @@ document.addEventListener("keydown", (e) => {
                     listos.push(suspendido);
                     enMemoria.push(suspendido); // Guardamos el proceso en memoria
                     suspendidos.shift();
+                    guardarArchivo();
                 }
 
                 console.log("Suspendidos: ", suspendidos);
@@ -582,6 +585,21 @@ document.addEventListener("keydown", (e) => {
         }
     }
 });
+
+const guardarArchivo = () => {
+    console.log("Guardar Archivo");
+    // Convertimos a JSON
+    const contenido = JSON.stringify(suspendidos, null, 2);
+
+    // Creamos el archivo
+    const blob = new Blob([contenido], { type: "application/json" });
+
+    // Creamos enlace de descarga
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "suspendidos.json";  // nombre del archivo
+    link.click();                    // descarga automática
+}
 
 const mostrarTablaPg = () => {
     document.getElementById("relojTabla").innerText = `Reloj: ${relojGlobal}`;
@@ -603,6 +621,18 @@ const mostrarTablaPg = () => {
         }
     });
 
+    let htmlBloqPg = "<tr><th>ID-Proceso</th><th>Tamaño del Proceso</th><th>Paginas Asociadas</th><th>T. Rest. Bloq.</th></tr>";
+    bloqueados.forEach(p => {
+        if (bloqueados.length > 0) {
+            htmlBloqPg += `<tr>
+            <td> ${p.id} </td>
+            <td>${p.tamanio} </td>
+            <td>${p.numPaginas} </td>
+            <td>${p.bloqueadoRestante} </td>
+        `;
+        }
+    });
+
     // Formatear los marcos libres en varias líneas dentro de la misma celda
     const chunkArray = (arr, size) => {
         const res = [];
@@ -616,7 +646,7 @@ const mostrarTablaPg = () => {
     // Contenedor con ancho máximo y ajuste de palabra para que no ensanche la tabla
     const marcosCell = `<div style="max-width:220px; white-space:normal; word-break:break-word; overflow-wrap:break-word;">${lines || '-'}</div>`;
 
-    let html2 = `
+    let htmlLibresPg = `
         <tr>
             <th>Cantidad de Marcos Libres</th>
             <th>Espacio Disponible</th>
@@ -630,24 +660,9 @@ const mostrarTablaPg = () => {
 
     `;
 
-
-    let htmlBloqPg = "<tr><th>ID-Proceso</th><th>Tamaño del Proceso</th><th>Paginas Asociadas</th><th>T. Rest. Bloq.</th></tr>";
-    bloqueados.forEach(p => {
-        if (bloqueados.length > 0) {
-            htmlBloqPg += `<tr>
-            <td> ${p.id} </td>
-            <td>${p.tamanio} </td>
-            <td>${p.numPaginas} </td>
-            <td>${p.bloqueadoRestante} </td>
-        `;
-        }
-    });
-
-
-
     document.getElementById('tablaPg').innerHTML = html;
-    document.getElementById('tablaPgLibres').innerHTML = html2;
     document.getElementById('tablaPgBloq').innerHTML = htmlBloqPg;
+    document.getElementById('tablaPgLibres').innerHTML = htmlLibresPg;
 };
 
 const mostrarBCP = () => {
