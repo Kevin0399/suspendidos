@@ -1,7 +1,5 @@
 // ================================
 // Macros
-
-
 // ================================
 const MAXMARCOS = 48; // Numero maximo de marcos
 
@@ -678,7 +676,7 @@ const mostrarBCP = () => {
             <td>${p.finalizacion}</td>
             <td>${p.espera}</td>
             <td>${p.respuesta}</td>
-            <td>-</td>
+            <td>${p.retorno}</td>
             <td>${p.servicio}</td>
             <td>${"0"}</td>
             <td>${p.estado}</td>
